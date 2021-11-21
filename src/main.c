@@ -21,6 +21,7 @@
 // #define PWM
 
 // test commit
+// test commit no. 2
 
 #include <stdbool.h> // booleans, i.e. true and false
 #include <stdio.h>   // sprintf() function
