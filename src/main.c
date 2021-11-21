@@ -39,8 +39,17 @@ int main(void)
 
     InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // on-board LED
     InitializePin(GPIOA, GPIO_PIN_0, GPIO_MODE_INPUT, GPIO_NOPULL, 0);      // sensor output --> RGB values
-    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);       // S3 Port on sensor (select colour filters)
-    InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);       // S2 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);   // S3 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);   // S2 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);   // S0 Port on sensor (select output frequency)
+    InitializePin(GPIOA, GPIO_PIN_6, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);   // S1 Port on sensor (select output frequency)
+
+    // initialize output frequency of sensor
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);    // S0 set at low frequency
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);    // S1 set at high frequency
+
+    //TESTING
+
 
 
     // note: the on-board pushbutton is fine with the default values (no internal pull-up resistor
