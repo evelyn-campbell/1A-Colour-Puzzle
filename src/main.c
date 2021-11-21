@@ -2,6 +2,7 @@
 
 // Colour Detection Pattern Puzzle
 // Authors: Keya Tiwari, Evelyn Campbell
+// November, 2021
 
 #include <stdbool.h> // booleans, i.e. true and false
 #include <stdio.h>   // sprintf() function
@@ -9,18 +10,19 @@
 
 #include "ece198.h"
 
-bool is_won (void){
+bool is_won(void)
+{
 
-    // if (check sequences)
-    // true --> turn on on-board LED
+    // if sequence number is final (this function will only be called when there is a colour match)
+    // true --> turn on on-board LED (other LED if have time)
     // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, true);   // turn on LED (can change to off-board LED later if needed)
-    
+
     //else
     return false;
 }
 
-void play_puzzle(bool is_won){
-
+void play_puzzle(bool is_won)
+{
 
 }
 
@@ -37,37 +39,41 @@ int main(void)
 
     // initialize the pins to be input, output, alternate function, etc...
 
-    InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // on-board LED
-    InitializePin(GPIOA, GPIO_PIN_0, GPIO_MODE_INPUT, GPIO_NOPULL, 0);      // sensor output --> RGB values
-    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);   // S3 Port on sensor (select colour filters)
-    InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);   // S2 Port on sensor (select colour filters)
-    InitializePin(GPIOA, GPIO_PIN_6, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);   // S0 Port on sensor (select output frequency)
-    InitializePin(GPIOA, GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);   // S1 Port on sensor (select output frequency)
+    InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // on-board LED
+    InitializePin(GPIOA, GPIO_PIN_0, GPIO_MODE_INPUT, GPIO_NOPULL, 0);     // sensor output --> RGB values
+    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S3 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S2 Port on sensor (select colour filters)
 
-    // initialize output frequency of sensor
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);    // S0 set at low frequency
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);    // S1 set at high frequency
+    // TO DO:
+    // figure out how to get outputs to serial monitor working (nothing prints)
+    // figure out how to receive inputs from TSC3200 sensor and what data type these inputs come in (long, int, etc)
+    // everything from here is simpler
 
-    //TESTING
-    unsigned long red = 0;
-    char buff[100];
+    // C is not OOP (might lose marks on design document oops)
 
-    while (1){
-    //red value
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);  // low  
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);  // low
+    // SEQUENCE CHECK CODE
+    // array [3] = (red, blue, green)
+    // bool foo (array, sequence number){
+        //compare to answer
+        // if wrong, (maybe send output) set sequence number to 0
+        // otherwise, call is_won
+        // call is_won
+            // do stuff
 
-    red = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
-    sprintf(buff, "RED: %d", red);
+    //}
 
+    // WILL NOT PRINT TO SERIAL MONITOR
+    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
+    {
     }
 
+    while (1) // loop forever, blinking the LED
+    {
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        HAL_Delay(250);  // 250 milliseconds == 1/4 second
+        printf("AAAA");
+    }
 
-    // note: the on-board pushbutton is fine with the default values (no internal pull-up resistor
-    // is required, since there's one on the board)
-
-    // set up for serial communication to the host computer
-    // (anything we write to the serial port will appear in the terminal (i.e. serial monitor) in VSCode)
 
     SerialSetup(9600);
 
@@ -83,4 +89,3 @@ void SysTick_Handler(void)
     HAL_IncTick(); // tell HAL that a new tick has happened
     // we can do other things in here too if we need to, but be careful
 }
-
