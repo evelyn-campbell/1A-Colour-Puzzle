@@ -44,6 +44,9 @@ int main(void)
     InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S3 Port on sensor (select colour filters)
     InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S2 Port on sensor (select colour filters)
 
+
+    SerialSetup(9600);
+
     // TO DO:
     // figure out how to get outputs to serial monitor working (nothing prints)
     // figure out how to receive inputs from TSC3200 sensor and what data type these inputs come in (long, int, etc)
@@ -72,10 +75,9 @@ int main(void)
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
         HAL_Delay(250);  // 250 milliseconds == 1/4 second
         printf("AAAA");
+
+        // code will not wipe on STM32 board?
     }
-
-
-    SerialSetup(9600);
 
     // as mentioned above, only one of the following code sections will be used
     // (depending on which of the #define statements at the top of this file has been uncommented)
