@@ -39,8 +39,8 @@ int main(void)
 
     InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // on-board LED
     InitializePin(GPIOA, GPIO_PIN_0, GPIO_MODE_INPUT, GPIO_NOPULL, 0);      // sensor output --> RGB values
-    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, _NOPULL,0);       // S3 Port on sensor (select colour filters)
-    InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, _NOPULL,0);       // S2 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);       // S3 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL,0);       // S2 Port on sensor (select colour filters)
 
 
     // note: the on-board pushbutton is fine with the default values (no internal pull-up resistor
