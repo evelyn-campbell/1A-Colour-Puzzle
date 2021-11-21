@@ -9,6 +9,21 @@
 
 #include "ece198.h"
 
+bool is_won (void){
+
+    // if (check sequences)
+    // true --> turn on on-board LED
+    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, true);   // turn on LED (can change to off-board LED later if needed)
+    
+    //else
+    return false;
+}
+
+void play_puzzle(bool is_won){
+
+
+}
+
 int main(void)
 {
     HAL_Init(); // initialize the Hardware Abstraction Layer
@@ -23,6 +38,7 @@ int main(void)
     // initialize the pins to be input, output, alternate function, etc...
 
     InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // on-board LED
+
 
     // note: the on-board pushbutton is fine with the default values (no internal pull-up resistor
     // is required, since there's one on the board)
