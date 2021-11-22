@@ -71,7 +71,8 @@ int main(void)
 
     }
 
-    // output occurs in 0s and 1s -- need to use this to get an rgb value as an int
+    // output occurs in 0s and 1s -- need to use this to get an rgb value as an int 
+    //create for loop out of 256 and count 1s for colour value -- check to see if this is accurate
 
 
     // TO DO:
