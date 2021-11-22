@@ -10,6 +10,8 @@
 
 #include "ece198.h"
 
+#define TIME_RAND
+
 bool is_won(void)
 {
 
@@ -23,11 +25,10 @@ bool is_won(void)
 
 void play_puzzle(bool is_won)
 {
-
 }
 
 int main(void)
-{
+{       
     HAL_Init(); // initialize the Hardware Abstraction Layer
 
     // Peripherals (including GPIOs) are disabled by default to save power, so we
@@ -41,11 +42,37 @@ int main(void)
 
     InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // on-board LED
     InitializePin(GPIOA, GPIO_PIN_0, GPIO_MODE_INPUT, GPIO_NOPULL, 0);     // sensor output --> RGB values
-    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S3 Port on sensor (select colour filters)
     InitializePin(GPIOA, GPIO_PIN_3, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S2 Port on sensor (select colour filters)
-
+    InitializePin(GPIOA, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0); // S3 Port on sensor (select colour filters)
+    InitializePin(GPIOA, GPIO_PIN_6, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // S0 Port on sensor (select output frequency)
+    InitializePin(GPIOA, GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // S1 Port on sensor (select output frequency)
 
     SerialSetup(9600);
+
+    // initialize frequencies
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);    // S0
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
+
+    // TESTING
+
+    unsigned long red = 0;
+
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
+
+    char buff[100];
+
+    while (1){
+
+    red = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
+
+    sprintf(buff, "RED: %lu \n", red);
+    SerialPuts(buff);
+
+    }
+
+    // output occurs in 0s and 1s -- need to use this to get an rgb value as an int
+
 
     // TO DO:
     // figure out how to get outputs to serial monitor working (nothing prints)
@@ -57,30 +84,11 @@ int main(void)
     // SEQUENCE CHECK CODE
     // array [3] = (red, blue, green)
     // bool foo (array, sequence number){
-        //compare to answer
-        // if wrong, (maybe send output) set sequence number to 0
-        // otherwise, call is_won
-        // call is_won
-            // do stuff
-
-    //}
-
-    // WILL NOT PRINT TO SERIAL MONITOR
-    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
-    {
-    }
-
-    while (1) // loop forever, blinking the LED
-    {
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        HAL_Delay(250);  // 250 milliseconds == 1/4 second
-        printf("AAAA");
-
-        // code will not wipe on STM32 board?
-    }
-
-    // as mentioned above, only one of the following code sections will be used
-    // (depending on which of the #define statements at the top of this file has been uncommented)
+    //compare to answer
+    // if wrong, (maybe send output) set sequence number to 0
+    // otherwise, call is_won
+    // call is_won
+    // do stuff
 
     return 0;
 }
