@@ -20,7 +20,7 @@ bool is_won(int sequence_num)
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
         return true;
     }
-    
+
     else {
         return false;
     }
@@ -29,6 +29,17 @@ bool is_won(int sequence_num)
 
 void play_puzzle(bool is_won)
 {
+}
+
+void sequence_check (unsigned long item [3], int sequence_num){
+    size_t rgb = 3;
+    unsigned long item1 [rgb];  // initialize these with rgb values later
+    unsigned long item2 [rgb];
+    unsigned long item3 [rgb];
+    unsigned long item4 [rgb];
+    unsigned long item5 [rgb];
+
+    // if sequence num = 1 --> compare to item 1
 }
 
 // measure the length of a pulse in milliseconds
