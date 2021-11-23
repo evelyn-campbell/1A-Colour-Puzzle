@@ -43,15 +43,15 @@ void sequence_check (unsigned long item [3], int sequence_num){
 }
 
 // measure the length of a pulse in milliseconds
-unsigned long measure_pulse(GPIO_TypeDef pin_letter, uint16_t pin_num, uint16_t state){
+unsigned long measure_pulse(TIM_HandleTypeDef *htim){
 
-    //prescalar = 84 (?)    // default timeout
     
+
 
 }
 
 // rgb value for red
-unsigned long red_value(GPIO_TypeDef pin_letter, uint16_t pin_num){
+unsigned long red_value(){
 
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
@@ -61,7 +61,7 @@ unsigned long red_value(GPIO_TypeDef pin_letter, uint16_t pin_num){
 }
 
 //rgb value for blue 
-unsigned long blue_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
+unsigned long blue_value() {
 
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
@@ -71,7 +71,7 @@ unsigned long blue_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
 }
 
 //rgb value for green
-unsigned long green_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
+unsigned long green_value() {
 
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 1);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
@@ -111,7 +111,7 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
     // timer setup
-    uint16_t period = 100, prescaler = 84;
+    uint16_t period = 1000, prescaler = 84;
     __TIM2_CLK_ENABLE(); 
     TIM_HandleTypeDef pwmTimerInstance;  
     InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescaler);   
