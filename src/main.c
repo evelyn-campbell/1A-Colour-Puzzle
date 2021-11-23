@@ -44,6 +44,8 @@ void sequence_check (unsigned long item [3], int sequence_num){
 
 // measure the length of a pulse in milliseconds
 unsigned long measure_pulse(GPIO_TypeDef pin_letter, uint16_t pin_num, uint16_t state){
+
+    //prescalar = 84 (?)    // default timeout
     
 
 }
@@ -107,6 +109,11 @@ int main(void)
     // 20% sensor output frequency scaling
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);    // S0
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
+
+    //start timer
+    TIM1->CCR1 = 50;
+    //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    //HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
 
     // TESTING
 
