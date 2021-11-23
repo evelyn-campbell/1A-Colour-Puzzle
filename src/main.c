@@ -44,11 +44,11 @@ void sequence_check (unsigned long item [3], int sequence_num){
 
 // measure the length of a pulse in milliseconds
 unsigned long measure_pulse(TIM_HandleTypeDef *htim){
-    uint16_t IC_Val1 = 0;
-    uint16_t IC_Val2 = 0;
-    uint16_t Difference = 0;
-    uint16_t Width = 0;
-    bool Is_First_Captured = false;
+    uint16_t value1 = 0;
+    uint16_t value2 = 0;
+    uint16_t difference = 0;
+    uint16_t width = 0;
+    bool is_first_captured = false;
 
 }
 
