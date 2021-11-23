@@ -51,17 +51,15 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim){
     bool is_first_captured = false;
 
     if (htim->Channel == TIM_CHANNEL_1 ){
-        if (is_first_captured) {
-
-
+        if (is_first_captured == false) {
+            value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            is_first_captured = true;
         } else {
-
+            value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
             if (value2 > value1) {
-
-
+                difference = value2 - value1;
             } else if (value1 > value2) {
-
-
+                difference = value1 - value2;
             }
         }
     }
