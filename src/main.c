@@ -110,10 +110,12 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);    // S0
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
-    //start timer
-    TIM1->CCR1 = 50;
-    //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-    //HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+    // timer setup
+    uint16_t period = 100, prescaler = 84;
+    __TIM2_CLK_ENABLE(); 
+    TIM_HandleTypeDef pwmTimerInstance;  
+    InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescaler);   
+    InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
 
     // TESTING
 
