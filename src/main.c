@@ -44,7 +44,7 @@ void sequence_check (unsigned long item [3], int sequence_num){
 
 // measure the length of a pulse in milliseconds
 // recreate HAL_TIM_IC_CaptureCallback function to return a pulse width
-unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar = 84;){
+unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar){
     uint16_t value1 = 0;
     uint16_t value2 = 0;
     uint16_t difference = 0;
@@ -54,19 +54,17 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar = 84;){
     if (htim->Channel == TIM_CHANNEL_1 ){
 
         if (is_first_captured == false) {
-            value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-            is_first_captured = true;
-        }
-        
-        else {
-            value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-
+            // if the first value is not captured
+            value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the first value
+            is_first_captured = true; 
+        } else {
+            // if the first value is captured
+            value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the second value
+           
             if (value2 > value1) {
                 difference = value2 - value1;
-            } 
-
-            else if (value1 > value2) {
-                difference = value1 - value2;
+            } else if (value1 > value2) {
+                difference = (0xffffffff - value1) + value2;
             }
         }
     }
@@ -83,28 +81,28 @@ unsigned long red_value(){
     return red;
 }
 
-//rgb value for blue 
+// rgb value for blue 
 unsigned long blue_value() {
 
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
 
-    unsigned long blue = 0; //call measure_pulse
+    unsigned long blue = 0; // call measure_pulse
     return blue;
 }
 
-//rgb value for green
+// rgb value for green
 unsigned long green_value() {
 
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 1);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
 
-    unsigned long green = 0; //call measure_pulse
+    unsigned long green = 0; // call measure_pulse
     return green;
 }
 
 
-//collect red colour
+// collect red colour
 
 int main(void)
 {       
@@ -134,10 +132,10 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
     // timer setup
-    uint16_t period = 1000, prescaler = 84;
+    uint16_t period = 1000, prescalar = 84;
     __TIM2_CLK_ENABLE(); 
     TIM_HandleTypeDef pwmTimerInstance;  
-    InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescaler);   
+    InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescalar);   
     InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
 
     // TESTING
@@ -159,7 +157,7 @@ int main(void)
     }
 
     // output occurs in 0s and 1s -- need to use this to get an rgb value as an int 
-    //create for loop out of 256 and count 1s for colour value? -- check to see if this is accurate
+    // create for loop out of 256 and count 1s for colour value? -- check to see if this is accurate
 
 
     // TO DO:
