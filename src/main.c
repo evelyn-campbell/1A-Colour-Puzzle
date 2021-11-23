@@ -44,25 +44,29 @@ void sequence_check (unsigned long item [3], int sequence_num){
 
 // measure the length of a pulse in milliseconds
 // recreate HAL_TIM_IC_CaptureCallback function to return a pulse width
-unsigned long measure_pulse(TIM_HandleTypeDef *htim){
+unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar = 84;){
     uint16_t value1 = 0;
     uint16_t value2 = 0;
     uint16_t difference = 0;
     uint16_t width = 0;
     bool is_first_captured = false;
 
-    if (htim->Channel == TIM_CHANNEL_1 ){       // ensure channel is correct
-        if (is_first_captured) {
+    if (htim->Channel == TIM_CHANNEL_1 ){
 
-
-        } else {
+        if (is_first_captured == false) {
+            value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            is_first_captured = true;
+        }
+        
+        else {
+            value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 
             if (value2 > value1) {
+                difference = value2 - value1;
+            } 
 
-
-            } else if (value1 > value2) {
-
-
+            else if (value1 > value2) {
+                difference = value1 - value2;
             }
         }
     }
