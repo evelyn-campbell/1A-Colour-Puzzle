@@ -27,6 +27,11 @@ void play_puzzle(bool is_won)
 {
 }
 
+ uint16_t measure_pulse(){
+
+
+}
+
 int main(void)
 {       
     HAL_Init(); // initialize the Hardware Abstraction Layer
@@ -50,6 +55,7 @@ int main(void)
     SerialSetup(9600);
 
     // initialize frequencies
+    // 20% sensor output frequency scaling
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);    // S0
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
@@ -62,7 +68,7 @@ int main(void)
 
     char buff[100];
 
-    while (1){
+    while (1){      //need to measure frequency here (pulse width)
 
     red = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
 
@@ -72,7 +78,7 @@ int main(void)
     }
 
     // output occurs in 0s and 1s -- need to use this to get an rgb value as an int 
-    //create for loop out of 256 and count 1s for colour value -- check to see if this is accurate
+    //create for loop out of 256 and count 1s for colour value? -- check to see if this is accurate
 
 
     // TO DO:
