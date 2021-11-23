@@ -66,7 +66,7 @@ unsigned long blue_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
 
-    unsigned long blue = 0;
+    unsigned long blue = 0; //call measure_pulse
     return blue;
 }
 
@@ -76,7 +76,7 @@ unsigned long green_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 1);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
 
-    unsigned long green = 0;
+    unsigned long green = 0; //call mesure_pulse
     return green;
 }
 
