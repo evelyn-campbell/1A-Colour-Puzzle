@@ -50,6 +50,22 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim){
     uint16_t width = 0;
     bool is_first_captured = false;
 
+    if (htim->Channel == TIM_CHANNEL_1 ){
+        if (is_first_captured) {
+
+
+        } else {
+
+            if (value2 > value1) {
+
+
+            } else if (value1 > value2) {
+
+
+            }
+        }
+    }
+
 }
 
 // rgb value for red
