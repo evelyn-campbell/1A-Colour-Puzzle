@@ -57,6 +57,17 @@ unsigned long blue_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
     return blue;
 }
 
+//rgb value for green
+unsigned long green_value(GPIO_TypeDef pin_letter, uint16_t pin_num) {
+
+    HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 1);
+    HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
+
+    unsigned long green = 0;
+    return green;
+}
+
+
 //collect red colour
 
 int main(void)
