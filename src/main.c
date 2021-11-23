@@ -57,6 +57,7 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar){
             // if the first value is not captured
             value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the first value
             is_first_captured = true; 
+
         } else {
             // if the first value is captured
             value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the second value
@@ -67,7 +68,7 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar){
                 difference = (0xffffffff - value1) + value2;
             }
 
-            float reference_clock = TIM2/(prescalar);
+            float reference_clock = HAL_RCC_GetSysClockFreq()/(prescalar);
             float mul_factor = 1000000/reference_clock;
 
             width = difference*mul_factor;
