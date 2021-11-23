@@ -12,15 +12,19 @@
 
 #define TIME_RAND
 
-bool is_won(void)
+bool is_won(int sequence_num)
 {
 
-    // if sequence number is final (this function will only be called when there is a colour match)
-    // true --> turn on on-board LED (other LED if have time)
-    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, true);   // turn on LED (can change to off-board LED later if needed)
-
-    //else
-    return false;
+    if (sequence_num == 5){
+        // win!!
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        return true;
+    }
+    
+    else {
+        return false;
+    }
+    
 }
 
 void play_puzzle(bool is_won)
