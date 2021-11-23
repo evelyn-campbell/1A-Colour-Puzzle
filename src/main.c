@@ -43,6 +43,7 @@ void sequence_check (unsigned long item [3], int sequence_num){
 }
 
 // measure the length of a pulse in milliseconds
+// recreate HAL_TIM_IC_CaptureCallback to return a pulse width
 unsigned long measure_pulse(TIM_HandleTypeDef *htim){
     uint16_t value1 = 0;
     uint16_t value2 = 0;
