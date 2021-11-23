@@ -60,6 +60,7 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim){
         } else {
             // if the first value is captured
             value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the second value
+           
             if (value2 > value1) {
                 difference = value2 - value1;
             } else if (value1 > value2) {
@@ -131,10 +132,10 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
     // timer setup
-    uint16_t period = 1000, prescaler = 84;
+    uint16_t period = 1000, prescalar = 84;
     __TIM2_CLK_ENABLE(); 
     TIM_HandleTypeDef pwmTimerInstance;  
-    InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescaler);   
+    InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescalar);   
     InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
 
     // TESTING
