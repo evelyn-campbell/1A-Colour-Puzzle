@@ -27,10 +27,23 @@ void play_puzzle(bool is_won)
 {
 }
 
- uint16_t measure_pulse(){
-
+// measure the length of a pulse in milliseconds
+unsigned long measure_pulse(GPIO_TypeDef pin_letter, uint16_t pin_num, uint16_t state){
+    
 
 }
+
+// rgb value for red
+unsigned long red_value(GPIO_TypeDef pin_letter, uint16_t pin_num){
+
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
+
+    unsigned long red = 0; // call measure_pulse here
+    return red;
+}
+
+//collect red colour
 
 int main(void)
 {       
