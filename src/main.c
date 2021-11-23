@@ -66,6 +66,14 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar){
             } else if (value1 > value2) {
                 difference = (0xffffffff - value1) + value2;
             }
+
+            float reference_clock = TIM2/(prescalar);
+            float mul_factor = 1000000/reference_clock;
+
+            width = difference*mul_factor;
+
+            __HAL_TIM_SET_COUNTER(htim, 0);
+            is_first_captured = false;
         }
     }
 
