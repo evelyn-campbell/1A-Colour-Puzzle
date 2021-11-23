@@ -111,7 +111,7 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
     // timer setup
-    uint16_t period = 100, prescaler = 84;
+    uint16_t period = 1000, prescaler = 84;
     __TIM2_CLK_ENABLE(); 
     TIM_HandleTypeDef pwmTimerInstance;  
     InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescaler);   
