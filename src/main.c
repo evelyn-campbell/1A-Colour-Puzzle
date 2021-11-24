@@ -34,26 +34,33 @@ void play_puzzle(){
         // and checks for correct sequences until an entire sequence is confirmed correct, after which it will
         // declare is_won to be true
         
+        while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
         item[3] = &(int[3]){150,45,200};
         sequence_num++;
 
         if (sequence_check(item[3], sequence_num)){
+            while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
             item[3] = &(int[3]){220,125,50};
             sequence_num++;
+            
 
             if (sequence_check(item[3], sequence_num)){
+                while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
                 item[3] = &(int[3]){70,150,90};
                 sequence_num++;
 
                 if (sequence_check(item[3], sequence_num)){
+                    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
                     item[3] = &(int[3]){85,185,85};
                     sequence_num++;
 
                     if (sequence_check(item[3], sequence_num)){
+                        while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
                         item[3] = &(int[3]){205,80,170};
                         sequence_num++;
 
                         if (sequence_check(item[3], sequence_num)){
+                            while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
                             is_won = true;
                         }
                     }
