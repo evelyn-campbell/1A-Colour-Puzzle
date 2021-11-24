@@ -29,7 +29,7 @@ void play_puzzle(){
         int sequence_num = 0;
         unsigned long *item[3] = &(int[3]){0,0,0};
 
-        // hardcoding values for demo because measure_pulse does not work
+        // hardcoding values for demo purposes because measure_pulse does not work
         // normally, a loop is called here that fills an array with red_value(), green_value(), blue_value(),
         // and checks for correct sequences until an entire sequence is confirmed correct, after which it will
         // declare is_won to be true
@@ -42,7 +42,22 @@ void play_puzzle(){
             sequence_num++;
 
             if (sequence_check(item[3], sequence_num)){
-                
+                item[3] = &(int[3]){70,150,90};
+                sequence_num++;
+
+                if (sequence_check(item[3], sequence_num)){
+                    item[3] = &(int[3]){85,185,85};
+                    sequence_num++;
+
+                    if (sequence_check(item[3], sequence_num)){
+                        item[3] = &(int[3]){205,80,170};
+                        sequence_num++;
+                        
+                        if (sequence_check(item[3], sequence_num)){
+                            is_won = true;
+                        }
+                    }
+                }
             }
         }
     }
