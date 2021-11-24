@@ -39,6 +39,26 @@ void sequence_check (unsigned long item [3], int sequence_num){
     unsigned long ans4 [rgb];   // green
     unsigned long ans5 [rgb];   // pink
 
+    if (sequence_num == 1){
+
+    }
+    else if (sequence_num == 2){
+
+    }
+    else if (sequence_num == 3){
+
+    }
+    else if (sequence_num == 4){
+
+    }
+    else if (sequence_num == 5){
+        is_won(5);
+    }
+    else{
+        sequence_num = 0;
+    }
+
+
     // if sequence num = 1 --> compare to item 1
 }
 
