@@ -12,7 +12,7 @@
 
 #define TIME_RAND
 
-// measure frequency  - change to frequency alg when possible
+// measure frequency  - fix when possible
 unsigned long measure_frequency(){
     /* uint16_t value1 = 0;
     uint16_t value2 = 0;
