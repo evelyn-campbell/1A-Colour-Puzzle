@@ -88,29 +88,29 @@ bool sequence_check (unsigned long *item [3], int sequence_num){
     unsigned long ans5 [rgb];   // pink
 
     // purple
-    const ans1[0] = 150;
-    const ans1[1] = 45;
-    const ans1[2] = 200;
+    ans1[0] = 150;
+    ans1[1] = 45;
+    ans1[2] = 200;
 
     // orange
-    const ans2[0] = 220;
-    const ans2[1] = 125;
-    const ans2[2] = 50;
+    ans2[0] = 220;
+    ans2[1] = 125;
+    ans2[2] = 50;
 
     // blue
-    const ans3[0] = 70;
-    const ans3[1] = 150;
-    const ans3[2] = 190;
+    ans3[0] = 70;
+    ans3[1] = 150;
+    ans3[2] = 190;
 
     // green
-    const ans4[0] = 85;
-    const ans4[1] = 185;
-    const ans4[2] = 85;
+    ans4[0] = 85;
+    ans4[1] = 185;
+    ans4[2] = 85;
 
     // pink
-    const ans5[0] = 205;
-    const ans5[1] = 80;
-    const ans5[2] = 170;
+    ans5[0] = 205;
+    ans5[1] = 80;
+    ans5[2] = 170;
 
     if (sequence_num == 1){
         // compare rgb values
