@@ -33,73 +33,85 @@ void play_puzzle(bool is_won)
 
 void sequence_check (unsigned long item [3], int sequence_num){
     size_t rgb = 3;
-    unsigned long item1 [rgb];  // initialize these with rgb values later
-    unsigned long item2 [rgb];
-    unsigned long item3 [rgb];
-    unsigned long item4 [rgb];
-    unsigned long item5 [rgb];
+    unsigned long ans1 [rgb];   // purple
+    unsigned long ans2 [rgb];   // orange
+    unsigned long ans3 [rgb];   // blue
+    unsigned long ans4 [rgb];   // green
+    unsigned long ans5 [rgb];   // pink
 
     // if sequence num = 1 --> compare to item 1
 }
 
-// measure the length of a pulse in milliseconds
-unsigned long measure_pulse(){
-    uint16_t time1 = 0;
-    uint16_t time2 = 0;
 
-    while (1){
-        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0){
-            break;
+// measure frequency  - change to frequency alg when possible
+unsigned long measure_frequency(){
+    uint16_t value1 = 0;
+    uint16_t value2 = 0;
+    uint16_t difference = 0;
+    uint16_t width = 0;
+    uint16_t prescalar = 84;
+    bool is_first_captured = false;
+    TIM_HandleTypeDef *htim = TIM2;
+
+    if (htim->Channel == TIM_CHANNEL_1 ){
+
+        if (is_first_captured == false) {
+            // if the first value is not captured
+            value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the first value
+            is_first_captured = true; 
+
+        } else {
+            // if the first value is captured
+            value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the second value
+           
+            if (value2 > value1) {
+                difference = value2 - value1;
+            } else if (value1 > value2) {
+                difference = (0xffffffff - value1) + value2;
+            }
+
+            float reference_clock = 84/(prescalar);
+            float mul_factor = 1000000/reference_clock;
+
+            width = difference*mul_factor;
+
+            __HAL_TIM_SET_COUNTER(htim, 0);
+            is_first_captured = false;
+
+            return width;
         }
     }
-
-    while (1){
-        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1){
-            time1 = HAL_GetTick();
-            break;
-        }
-    }
-
-     while (1){
-        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0){
-            time2 = HAL_GetTick();
-            break;
-        }
-    }
-
-    unsigned long width = time2 - time1;
-
-    return width;
-
 }
 
 // rgb value for red
 unsigned long red_value(){
 
+    // write to sensor to use red photodiode type
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
 
-    unsigned long red = measure_pulse(); // call measure_pulse here
-    return red;
+    unsigned long red = measure_frequency(); 
 }
 
 // rgb value for blue 
 unsigned long blue_value() {
 
+    // write to sensor to use blue photodiode type
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
 
-    unsigned long blue = 0; // call measure_pulse
+    unsigned long blue = measure_frequency(); 
     return blue;
 }
 
 // rgb value for green
 unsigned long green_value() {
 
+    // write to sensor to use green photodiode type
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 1);
     HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
 
-    unsigned long green = 0; // call measure_pulse
+    unsigned long green = measure_frequency(); 
     return green;
 }
 
@@ -133,7 +145,7 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);    // S0
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);    // S1
 
-    // timer setup
+    // timer setup (for frequency measurements)
     uint16_t period = 1000, prescalar = 84;
     __TIM2_CLK_ENABLE(); 
     TIM_HandleTypeDef pwmTimerInstance;  
@@ -141,42 +153,16 @@ int main(void)
     InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
 
     // TESTING
-
-    unsigned long red = 0;
-
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
-
     char buff[100];
 
     while (1){      //need to measure frequency here (pulse width)
 
-    red = red_value();
+    unsigned long red = red_value();
 
     sprintf(buff, "RED: %lu \n", red);
     SerialPuts(buff);
 
     }
-
-    // output occurs in 0s and 1s -- need to use this to get an rgb value as an int 
-    // create for loop out of 256 and count 1s for colour value? -- check to see if this is accurate
-
-
-    // TO DO:
-    // figure out how to get outputs to serial monitor working (nothing prints)
-    // figure out how to receive inputs from TSC3200 sensor and what data type these inputs come in (long, int, etc)
-    // everything from here is simpler
-
-    // C is not OOP (might lose marks on design document oops)
-
-    // SEQUENCE CHECK CODE
-    // array [3] = (red, blue, green)
-    // bool foo (array, sequence number){
-    //compare to answer
-    // if wrong, (maybe send output) set sequence number to 0
-    // otherwise, call is_won
-    // call is_won
-    // do stuff
 
     return 0;
 }
