@@ -104,12 +104,6 @@ bool sequence_check (unsigned long item [3], int sequence_num){
             return false;
         }
     }
-    else{
-        sequence_num = 0;
-    }
-
-
-    // if sequence num = 1 --> compare to item 1
 }
 
 
