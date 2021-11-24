@@ -12,23 +12,14 @@
 
 #define TIME_RAND
 
-bool is_won(int sequence_num)
-{
+bool in_colour_range (int item, int mid_value, int uncertainty){
 
-    if (sequence_num == 5){
-        // win!!
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    if (item > (mid_value-uncertainty) && item < (mid_value+uncertainty)){
         return true;
     }
-
-    else {
+    else{
         return false;
     }
-    
-}
-
-bool in_colour_range (int mid_value, int uncertainty){
-
 }
 
 void play_puzzle(bool is_won)
@@ -43,43 +34,73 @@ bool sequence_check (unsigned long item [3], int sequence_num){
     unsigned long ans4 [rgb];   // green
     unsigned long ans5 [rgb];   // pink
 
-    const ans1[0] = 170;
-    const ans1[1] = 12;
-    const ans1[2] = 235;
+    // purple
+    const ans1[0] = 150;
+    const ans1[1] = 45;
+    const ans1[2] = 200;
 
-    const ans2[0] = 235;
+    // orange
+    const ans2[0] = 220;
     const ans2[1] = 125;
-    const ans2[2] = 13;
+    const ans2[2] = 50;
 
-    const ans3[0] = 19;
-    const ans3[1] = 126;
-    const ans3[2] = 235;
+    // blue
+    const ans3[0] = 70;
+    const ans3[1] = 150;
+    const ans3[2] = 190;
 
-    const ans4[0] = 105;
-    const ans4[1] = 235;
-    const ans4[2] = 61;
+    // green
+    const ans4[0] = 85;
+    const ans4[1] = 185;
+    const ans4[2] = 85;
 
-    const ans5[0] = 222;
-    const ans5[1] = 66;
-    const ans5[2] = 177;
+    // pink
+    const ans5[0] = 205;
+    const ans5[1] = 80;
+    const ans5[2] = 170;
 
     if (sequence_num == 1){
         // compare rgb values
-        
-            
-    
+        if (in_colour_range(item[0], ans1[0], 60) && in_colour_range(item[1], ans1[1], 45) && in_colour_range(item[2], ans1[2], 75)){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     else if (sequence_num == 2){
+        if (in_colour_range(item[0], ans2[0], 35) && in_colour_range(item[1], ans2[1], 50) && in_colour_range(item[2], ans2[2], 50)){
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
     else if (sequence_num == 3){
-
+         if (in_colour_range(item[0], ans3[0], 70) && in_colour_range(item[1], ans3[1], 60) && in_colour_range(item[2], ans3[2], 60)){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     else if (sequence_num == 4){
-
+        if (in_colour_range(item[0], ans4[0], 85) && in_colour_range(item[1], ans4[1], 70) && in_colour_range(item[2], ans4[2], 85)){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     else if (sequence_num == 5){
-        is_won(5);
+        if (in_colour_range(item[0], ans5[0], 50) && in_colour_range(item[1], ans5[1], 80) && in_colour_range(item[2], ans5[2], 85)){
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     else{
         sequence_num = 0;
