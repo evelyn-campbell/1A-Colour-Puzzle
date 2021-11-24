@@ -27,11 +27,15 @@ bool is_won(int sequence_num)
     
 }
 
+bool is_colour_range (int mid_value, int uncertainty){
+    
+}
+
 void play_puzzle(bool is_won)
 {
 }
 
-void sequence_check (unsigned long item [3], int sequence_num){
+bool sequence_check (unsigned long item [3], int sequence_num){
     size_t rgb = 3;
     unsigned long ans1 [rgb];   // purple
     unsigned long ans2 [rgb];   // orange
@@ -44,7 +48,10 @@ void sequence_check (unsigned long item [3], int sequence_num){
     const ans1[2] = 235;
 
     if (sequence_num == 1){
-
+        // compare rgb values
+        
+            
+        }
     }
     else if (sequence_num == 2){
 
