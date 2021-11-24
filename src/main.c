@@ -65,7 +65,7 @@ void play_puzzle(){
             SerialPuts("Sequence check failed");
         }
     }
-
+    
     SerialPuts("Puzzle Solved!");
     
 }
