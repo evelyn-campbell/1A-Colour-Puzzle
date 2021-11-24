@@ -52,13 +52,17 @@ void play_puzzle(){
                     if (sequence_check(item[3], sequence_num)){
                         item[3] = &(int[3]){205,80,170};
                         sequence_num++;
-                        
+
                         if (sequence_check(item[3], sequence_num)){
                             is_won = true;
                         }
                     }
                 }
             }
+        }
+
+        if (!is_won){
+            SerialPuts("Sequence check failed");
         }
     }
 
@@ -252,6 +256,8 @@ int main(void)
     TIM_HandleTypeDef pwmTimerInstance;  
     InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescalar);   
     InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
+
+    play_puzzle();
 
     return 0;
 }
