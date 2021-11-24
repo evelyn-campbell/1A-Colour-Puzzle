@@ -52,13 +52,17 @@ void play_puzzle(){
                     if (sequence_check(item[3], sequence_num)){
                         item[3] = &(int[3]){205,80,170};
                         sequence_num++;
-                        
+
                         if (sequence_check(item[3], sequence_num)){
                             is_won = true;
                         }
                     }
                 }
             }
+        }
+
+        if (!is_won){
+            SerialPuts("Sequence check failed");
         }
 
         free (item);
@@ -255,6 +259,8 @@ int main(void)
     InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescalar);   
     InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
 
+    play_puzzle();
+
     return 0;
 }
 
@@ -264,3 +270,4 @@ void SysTick_Handler(void)
     HAL_IncTick(); // tell HAL that a new tick has happened
     // we can do other things in here too if we need to, but be careful
 }
+
