@@ -23,12 +23,35 @@ bool in_colour_range (int item, int mid_value, int uncertainty){
 }
 
 void play_puzzle(){ 
-    if (sequence_check == false) {
+    bool is_won = false;
+
+    while (!is_won){
         int sequence_num = 0;
-    } 
+        unsigned long *item[3] = &(int[3]){0,0,0};
+
+        // hardcoding values for demo because measure_pulse does not work
+        // normally, a loop is called here that fills an array with red_value(), green_value(), blue_value(),
+        // and checks for correct sequences until an entire sequence is confirmed correct, after which it will
+        // declare is_won to be true
+        
+        item[3] = &(int[3]){150,45,200};
+        sequence_num++;
+
+        if (sequence_check(item[3], sequence_num)){
+            item[3] = &(int[3]){220,125,50};
+            sequence_num++;
+
+            if (sequence_check(item[3], sequence_num)){
+                
+            }
+        }
+    }
+
+    SerialPuts("Puzzle Solved!");
+    
 }
 
-bool sequence_check (unsigned long item [3], int sequence_num){
+bool sequence_check (unsigned long *item [3], int sequence_num){
     size_t rgb = 3;
     unsigned long ans1 [rgb];   // purple
     unsigned long ans2 [rgb];   // orange
@@ -105,7 +128,6 @@ bool sequence_check (unsigned long item [3], int sequence_num){
         }
     }
 }
-
 
 // measure frequency  - change to frequency alg when possible
 unsigned long measure_frequency(){
@@ -215,18 +237,6 @@ int main(void)
     TIM_HandleTypeDef pwmTimerInstance;  
     InitializePWMTimer(&pwmTimerInstance, TIM2, period, prescalar);   
     InitializePWMChannel(&pwmTimerInstance, TIM_CHANNEL_1); 
-
-    // TESTING
-    char buff[100];
-
-    while (1){      //need to measure frequency here (pulse width)
-
-    unsigned long red = red_value();
-
-    sprintf(buff, "RED: %lu \n", red);
-    SerialPuts(buff);
-
-    }
 
     return 0;
 }
