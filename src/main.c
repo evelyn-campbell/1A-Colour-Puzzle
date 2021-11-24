@@ -205,6 +205,7 @@ unsigned long red_value(){
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
 
     unsigned long red = measure_frequency(); 
+    return red;
 }
 
 // rgb value for blue 
