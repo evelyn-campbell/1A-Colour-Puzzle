@@ -43,6 +43,22 @@ void sequence_check (unsigned long item [3], int sequence_num){
     ans1[1] = 12;
     ans1[2] = 235;
 
+    ans2[0] = 235;
+    ans2[1] = 125;
+    ans2[2] = 13;
+
+    ans3[0] = 19;
+    ans3[1] = 126;
+    ans3[2] = 235;
+
+    ans4[0] = 105;
+    ans4[1] = 235;
+    ans4[2] = 61;
+
+    ans5[0] = 222;
+    ans5[1] = 66;
+    ans5[2] = 177;
+
     if (sequence_num == 1){
 
     }
