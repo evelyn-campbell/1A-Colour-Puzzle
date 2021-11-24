@@ -12,7 +12,7 @@
 
 #define TIME_RAND
 
-bool in_colour_range (unsigned long item, int mid_value, int uncertainty){
+bool in_colour_range (unsigned long *item, int mid_value, int uncertainty){
 
     if (item > (mid_value-uncertainty) && item < (mid_value+uncertainty)){
         return true;
@@ -27,7 +27,7 @@ void play_puzzle(){
 
     while (!is_won){
         int sequence_num = 0;
-        unsigned long *item = (int[3]){0,0,0};
+        unsigned long *item = (unsigned long[3]){0,0,0};
 
         // hardcoding values for demo purposes because measure_pulse does not work
         // normally, a loop is called here that fills an array with red_value(), green_value(), blue_value(),
