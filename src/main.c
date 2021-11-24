@@ -64,6 +64,8 @@ void play_puzzle(){
         if (!is_won){
             SerialPuts("Sequence check failed");
         }
+
+        free (item);
     }
     
     SerialPuts("Puzzle Solved!");
@@ -268,3 +270,4 @@ void SysTick_Handler(void)
     HAL_IncTick(); // tell HAL that a new tick has happened
     // we can do other things in here too if we need to, but be careful
 }
+
