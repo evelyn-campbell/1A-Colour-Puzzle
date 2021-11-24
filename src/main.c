@@ -159,6 +159,7 @@ bool sequence_check (unsigned long *item, int sequence_num){
     }
     else if (sequence_num == 4){
         if (in_colour_range(*(item), ans4[0], 85) && in_colour_range(*(item+1), ans4[1], 70) && in_colour_range(*(item+2), ans4[2], 85)){
+            
             return true;
         }
         else {
@@ -189,34 +190,43 @@ void play_puzzle(){
         // normally, a loop is called here that fills an array with red_value(), green_value(), blue_value(),
         // and checks for correct sequences until an entire sequence is confirmed correct, after which it will
         // declare is_won to be true
-        
+
         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0);
+        HAL_Delay(1000);
         item = (unsigned long[3]){150,45,200};
         sequence_num++;
 
         if (sequence_check(item, sequence_num)){
             while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0);
+            HAL_Delay(1000);
             item = (unsigned long[3]){220,125,50};
             sequence_num++;
             
 
             if (sequence_check(item, sequence_num)){
                 while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                item = (unsigned long[3]){70,150,90};
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0);
+                HAL_Delay(1000);
+                item = (unsigned long[3]){70,150,190};
                 sequence_num++;
 
                 if (sequence_check(item, sequence_num)){
                     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
+                    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0);
+                    HAL_Delay(1000);
                     item = (unsigned long[3]){85,185,85};
                     sequence_num++;
 
                     if (sequence_check(item, sequence_num)){
                         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
+                        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0);
+                        HAL_Delay(100);
                         item = (unsigned long[3]){205,80,170};
                         sequence_num++;
 
                         if (sequence_check(item, sequence_num)){
-                            while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
                             is_won = true;
                         }
                     }
@@ -225,7 +235,7 @@ void play_puzzle(){
         }
 
         if (!is_won){
-            SerialPuts("Sequence check failed");
+            SerialPuts("Sequence check failed \n");
         }
 
         free (item);
