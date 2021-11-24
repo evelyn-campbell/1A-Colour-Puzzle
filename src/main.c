@@ -27,8 +27,8 @@ bool is_won(int sequence_num)
     
 }
 
-bool is_colour_range (int mid_value, int uncertainty){
-    
+bool in_colour_range (int mid_value, int uncertainty){
+
 }
 
 void play_puzzle(bool is_won)
@@ -51,7 +51,7 @@ bool sequence_check (unsigned long item [3], int sequence_num){
         // compare rgb values
         
             
-        }
+    
     }
     else if (sequence_num == 2){
 
