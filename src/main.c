@@ -35,28 +35,28 @@ void play_puzzle(){
         // declare is_won to be true
         
         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-        item[3] = &(int[3]){150,45,200};
+        item[3] = &(unsigned long[3]){150,45,200};
         sequence_num++;
 
         if (sequence_check(item[3], sequence_num)){
             while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-            item[3] = &(int[3]){220,125,50};
+            item[3] = &(unsigned long[3]){220,125,50};
             sequence_num++;
             
 
             if (sequence_check(item[3], sequence_num)){
                 while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                item[3] = &(int[3]){70,150,90};
+                item[3] = &(unsigned long[3]){70,150,90};
                 sequence_num++;
 
                 if (sequence_check(item[3], sequence_num)){
                     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                    item[3] = &(int[3]){85,185,85};
+                    item[3] = &(unsigned long[3]){85,185,85};
                     sequence_num++;
 
                     if (sequence_check(item[3], sequence_num)){
                         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                        item[3] = &(int[3]){205,80,170};
+                        item[3] = &(unsigned long[3]){205,80,170};
                         sequence_num++;
 
                         if (sequence_check(item[3], sequence_num)){
@@ -155,6 +155,8 @@ bool sequence_check (unsigned long *item [3], int sequence_num){
             return false;
         }
     }
+
+    return false;
 }
 
 // measure frequency  - change to frequency alg when possible
