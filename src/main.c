@@ -31,8 +31,10 @@ bool in_colour_range (int mid_value, int uncertainty){
 
 }
 
-void play_puzzle(bool is_won)
-{
+void play_puzzle(bool is_won){ 
+    if (sequence_check == false) {
+        int sequence_num = 0;
+    } 
 }
 
 bool sequence_check (unsigned long item [3], int sequence_num){
