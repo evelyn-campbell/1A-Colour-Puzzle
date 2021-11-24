@@ -12,7 +12,7 @@
 
 #define TIME_RAND
 
-bool in_colour_range (int item, int mid_value, int uncertainty){
+bool in_colour_range (unsigned long item, int mid_value, int uncertainty){
 
     if (item > (mid_value-uncertainty) && item < (mid_value+uncertainty)){
         return true;
@@ -211,8 +211,8 @@ unsigned long red_value(){
 unsigned long blue_value() {
 
     // write to sensor to use blue photodiode type
-    HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 0);
-    HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
 
     unsigned long blue = measure_frequency(); 
     return blue;
@@ -222,8 +222,8 @@ unsigned long blue_value() {
 unsigned long green_value() {
 
     // write to sensor to use green photodiode type
-    HAL_GPIO_WritePint(GPIOA, GPIO_PIN_3, 1);
-    HAL_GPIO_WritePint(GPIOA, GPIO_PIN_4, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
 
     unsigned long green = measure_frequency(); 
     return green;
