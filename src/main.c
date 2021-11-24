@@ -43,44 +43,33 @@ void sequence_check (unsigned long item [3], int sequence_num){
 }
 
 // measure the length of a pulse in milliseconds
-// recreate HAL_TIM_IC_CaptureCallback function to return a pulse width in ms
 unsigned long measure_pulse(){
-    uint16_t value1 = 0;
-    uint16_t value2 = 0;
-    uint16_t difference = 0;
-    uint16_t width = 0;
-    uint16_t prescalar = 84;
-    bool is_first_captured = false;
-    TIM_HandleTypeDef *htim = TIM2;
+    uint16_t time1 = 0;
+    uint16_t time2 = 0;
 
-    if (htim->Channel == TIM_CHANNEL_1 ){
-
-        if (is_first_captured == false) {
-            // if the first value is not captured
-            value1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the first value
-            is_first_captured = true; 
-
-        } else {
-            // if the first value is captured
-            value2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1); // store the second value
-           
-            if (value2 > value1) {
-                difference = value2 - value1;
-            } else if (value1 > value2) {
-                difference = (0xffffffff - value1) + value2;
-            }
-
-            float reference_clock = 840000000/(prescalar);
-            float mul_factor = 1000000/reference_clock;
-
-            width = difference*mul_factor;
-
-            __HAL_TIM_SET_COUNTER(htim, 0);
-            is_first_captured = false;
-
-            return width;
+    while (1){
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0){
+            break;
         }
     }
+
+    while (1){
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1){
+            time1 = HAL_GetTick();
+            break;
+        }
+    }
+
+     while (1){
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0){
+            time2 = HAL_GetTick();
+            break;
+        }
+    }
+
+    unsigned long width = time2 - time1;
+
+    return width;
 
 }
 
