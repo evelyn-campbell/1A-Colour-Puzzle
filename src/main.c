@@ -27,7 +27,7 @@ void play_puzzle(){
 
     while (!is_won){
         int sequence_num = 0;
-        unsigned long *item[3] = &(int[3]){0,0,0};
+        unsigned long *item = (int[3]){0,0,0};
 
         // hardcoding values for demo purposes because measure_pulse does not work
         // normally, a loop is called here that fills an array with red_value(), green_value(), blue_value(),
@@ -35,31 +35,31 @@ void play_puzzle(){
         // declare is_won to be true
         
         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-        item[3] = &(unsigned long[3]){150,45,200};
+        item = &(unsigned long[3]){150,45,200};
         sequence_num++;
 
-        if (sequence_check(item[3], sequence_num)){
+        if (sequence_check(item, sequence_num)){
             while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-            item[3] = &(unsigned long[3]){220,125,50};
+            item = &(unsigned long[3]){220,125,50};
             sequence_num++;
             
 
-            if (sequence_check(item[3], sequence_num)){
+            if (sequence_check(item, sequence_num)){
                 while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                item[3] = &(unsigned long[3]){70,150,90};
+                item = &(unsigned long[3]){70,150,90};
                 sequence_num++;
 
-                if (sequence_check(item[3], sequence_num)){
+                if (sequence_check(item, sequence_num)){
                     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                    item[3] = &(unsigned long[3]){85,185,85};
+                    item = &(unsigned long[3]){85,185,85};
                     sequence_num++;
 
-                    if (sequence_check(item[3], sequence_num)){
+                    if (sequence_check(item, sequence_num)){
                         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
-                        item[3] = &(unsigned long[3]){205,80,170};
+                        item = &(unsigned long[3]){205,80,170};
                         sequence_num++;
 
-                        if (sequence_check(item[3], sequence_num)){
+                        if (sequence_check(item, sequence_num)){
                             while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // pending button press...
                             is_won = true;
                         }
@@ -193,10 +193,10 @@ unsigned long measure_frequency(){
 
             __HAL_TIM_SET_COUNTER(htim, 0);
             is_first_captured = false;
-
-            return width;
         }
     }
+
+    return width;
 }
 
 // rgb value for red
