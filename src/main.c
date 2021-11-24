@@ -33,11 +33,11 @@ void play_puzzle(bool is_won)
 
 void sequence_check (unsigned long item [3], int sequence_num){
     size_t rgb = 3;
-    unsigned long ans1 [rgb];   // purple
-    unsigned long ans2 [rgb];   // orange
-    unsigned long ans3 [rgb];   // blue
-    unsigned long ans4 [rgb];   // green
-    unsigned long ans5 [rgb];   // pink
+    const unsigned long ans1 [rgb];   // purple
+    const unsigned long ans2 [rgb];   // orange
+    const unsigned long ans3 [rgb];   // blue
+    const unsigned long ans4 [rgb];   // green
+    const unsigned long ans5 [rgb];   // pink
 
     if (sequence_num == 1){
 
