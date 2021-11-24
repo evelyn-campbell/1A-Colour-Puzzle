@@ -39,6 +39,10 @@ void sequence_check (unsigned long item [3], int sequence_num){
     unsigned long ans4 [rgb];   // green
     unsigned long ans5 [rgb];   // pink
 
+    ans1[0] = 170;
+    ans1[1] = 12;
+    ans1[2] = 235;
+
     if (sequence_num == 1){
 
     }
