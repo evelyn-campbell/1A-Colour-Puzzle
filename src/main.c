@@ -60,6 +60,8 @@ void play_puzzle(){
                 }
             }
         }
+
+        free (item);
     }
 
     SerialPuts("Puzzle Solved!");
