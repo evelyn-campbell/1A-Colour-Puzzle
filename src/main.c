@@ -44,12 +44,14 @@ void sequence_check (unsigned long item [3], int sequence_num){
 
 // measure the length of a pulse in milliseconds
 // recreate HAL_TIM_IC_CaptureCallback function to return a pulse width in ms
-unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar){
+unsigned long measure_pulse(){
     uint16_t value1 = 0;
     uint16_t value2 = 0;
     uint16_t difference = 0;
     uint16_t width = 0;
+    uint16_t prescalar = 84;
     bool is_first_captured = false;
+    TIM_HandleTypeDef *htim = TIM2;
 
     if (htim->Channel == TIM_CHANNEL_1 ){
 
@@ -68,13 +70,15 @@ unsigned long measure_pulse(TIM_HandleTypeDef *htim, uint16_t prescalar){
                 difference = (0xffffffff - value1) + value2;
             }
 
-            float reference_clock = HAL_RCC_GetSysClockFreq()/(prescalar);
+            float reference_clock = 840000000/(prescalar);
             float mul_factor = 1000000/reference_clock;
 
             width = difference*mul_factor;
 
             __HAL_TIM_SET_COUNTER(htim, 0);
             is_first_captured = false;
+
+            return width;
         }
     }
 
@@ -86,7 +90,7 @@ unsigned long red_value(){
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
 
-    unsigned long red = 0; // call measure_pulse here
+    unsigned long red = measure_pulse(); // call measure_pulse here
     return red;
 }
 
@@ -158,7 +162,7 @@ int main(void)
 
     while (1){      //need to measure frequency here (pulse width)
 
-    red = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
+    red = red_value();
 
     sprintf(buff, "RED: %lu \n", red);
     SerialPuts(buff);
