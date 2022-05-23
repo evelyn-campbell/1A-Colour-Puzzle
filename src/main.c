@@ -12,9 +12,10 @@
 
 #define TIME_RAND
 
-// measure frequency  - fix when possible
+// measure frequency
+// TODO:  polish frequency to RGB conversion
 unsigned long measure_frequency(){
-    /* uint16_t value1 = 0;
+    uint16_t value1 = 0;
     uint16_t value2 = 0;
     uint16_t difference = 0;
     uint16_t width = 0;
@@ -186,7 +187,7 @@ void play_puzzle(){
         int sequence_num = 0;
         unsigned long *item;
 
-        // hardcoding values for demo purposes because measure_pulse does not work
+        // hardcoding colour values for demo purposes, until measure frequency is polished
         // normally, a loop is called here that fills an array with red_value(), green_value(), blue_value(),
         // and checks for correct sequences until an entire sequence is confirmed correct, after which it will
         // declare is_won to be true
